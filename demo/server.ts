@@ -1,4 +1,4 @@
-import Bling from 'bling-erp-api'
+import Bling from '../lib/bling'
 import express, { Request, Response } from 'express'
 import fs from 'fs'
 
@@ -26,7 +26,7 @@ app.get('/auth', (req: Request, res: Response) => {
   const { clientId, clientSecret } = JSON.parse(
     fs.readFileSync(tmpFile).toString()
   )
-  fs.rmSync(tmpFile)
+  // fs.rmSync(tmpFile)
 
   const authKey = `${clientId}:${clientSecret}`
 
@@ -38,6 +38,7 @@ app.get('/auth', (req: Request, res: Response) => {
       Authorization: `Basic ${btoa(authKey)}`
     }
   }).then((response) => {
+    console.dir({ response: response.body })
     response.json().then((content) => {
       const bling = new Bling(content.access_token)
       bling.produtos.get().then((products) => {

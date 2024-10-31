@@ -1,12 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "lib": ["ES2023"],
+    "module": "node16",
+    "target": "ES2022",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    "sourceMap": true,
+    "outDir": "dist",
     "skipLibCheck": true,
-    "outDir": "./lib",
-    "rootDir": "."
-  }
+    "noUncheckedIndexedAccess": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
