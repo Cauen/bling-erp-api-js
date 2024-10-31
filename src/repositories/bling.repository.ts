@@ -13,6 +13,7 @@ import {
   IStoreOptions,
   IUpdateOptions
 } from './bling.repository.interface'
+import rateLimit, { rateLimitOptions } from 'axios-rate-limit';
 
 interface IBlingRepositoryProps {
   /**
@@ -24,6 +25,11 @@ interface IBlingRepositoryProps {
    * O _token_ de autenticação.
    */
   accessToken: string
+
+  /**
+   * Opções de rate limit.
+   */
+  rateLimitOptions?: rateLimitOptions
 }
 
 /**
@@ -44,9 +50,10 @@ export class BlingRepository implements IBlingRepository {
   constructor(props: IBlingRepositoryProps) {
     this.props = props
 
-    this.api = axios.create({
-      baseURL: this.props.baseUrl
-    })
+    const axiosInstance = axios.create({ baseURL: this.props.baseUrl })
+    this.api = this.props.rateLimitOptions ?
+      rateLimit(axiosInstance, this.props.rateLimitOptions) :
+      axiosInstance
 
     this.api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${this.props.accessToken}`
@@ -76,9 +83,9 @@ export class BlingRepository implements IBlingRepository {
       .then((response) =>
         options.shouldIncludeHeadersInResponse
           ? {
-              headers: response.headers,
-              ...response.data
-            }
+            headers: response.headers,
+            ...response.data
+          }
           : response.data
       )
       .catch((error: AxiosError<IDefaultErrorResponse>) =>
@@ -105,9 +112,9 @@ export class BlingRepository implements IBlingRepository {
       .then((response) =>
         options.shouldIncludeHeadersInResponse
           ? {
-              headers: response.headers,
-              ...response.data
-            }
+            headers: response.headers,
+            ...response.data
+          }
           : response.data
       )
       .catch((error: AxiosError<IDefaultErrorResponse>) =>
@@ -136,9 +143,9 @@ export class BlingRepository implements IBlingRepository {
       .then((response) =>
         options.shouldIncludeHeadersInResponse
           ? {
-              headers: response.headers,
-              ...response.data
-            }
+            headers: response.headers,
+            ...response.data
+          }
           : response.data
       )
       .catch((error: AxiosError<IDefaultErrorResponse>) =>
@@ -168,9 +175,9 @@ export class BlingRepository implements IBlingRepository {
       .then((response) =>
         options.shouldIncludeHeadersInResponse
           ? {
-              headers: response.headers,
-              ...response.data
-            }
+            headers: response.headers,
+            ...response.data
+          }
           : response.data
       )
       .catch((error: AxiosError<IDefaultErrorResponse>) =>
@@ -200,9 +207,9 @@ export class BlingRepository implements IBlingRepository {
       .then((response) =>
         options.shouldIncludeHeadersInResponse
           ? {
-              headers: response.headers,
-              ...response.data
-            }
+            headers: response.headers,
+            ...response.data
+          }
           : response.data
       )
       .catch((error: AxiosError<IDefaultErrorResponse>) =>
@@ -229,9 +236,9 @@ export class BlingRepository implements IBlingRepository {
       .then((response) =>
         options.shouldIncludeHeadersInResponse
           ? {
-              headers: response.headers,
-              ...response.data
-            }
+            headers: response.headers,
+            ...response.data
+          }
           : response.data
       )
       .catch((error: AxiosError<IDefaultErrorResponse>) =>

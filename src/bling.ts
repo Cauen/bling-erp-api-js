@@ -1,5 +1,6 @@
 'use strict'
 
+import { rateLimitOptions } from 'axios-rate-limit'
 import { Entity } from './entities/@shared/entity'
 import { Borderos } from './entities/borderos'
 import { CamposCustomizados } from './entities/camposCustomizados'
@@ -65,8 +66,8 @@ export default class Bling {
    *
    * @param accessToken O token de acesso à API do Bling.
    */
-  constructor(accessToken: string) {
-    this.#repository = getRepository(accessToken)
+  constructor(accessToken: string, rateLimitOptions?: rateLimitOptions) {
+    this.#repository = getRepository(accessToken, rateLimitOptions)
     this.#modules = {}
   }
 

@@ -13,6 +13,7 @@
     "build": "tsc --project tsconfig.build.json",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint --fix 'src/**/*.ts'",
+    "tscheck": "tsc --noEmit",
     "test": "npm run build && jest --config jest.config.ts",
     "test:coverage": "jest --config jest.config.ts --coverage"
   },
@@ -42,7 +43,8 @@
   },
   "homepage": "https://github.com/AlexandreBellas/bling-erp-api-js#readme",
   "dependencies": {
-    "axios": "^1.6.2"
+    "axios": "^1.6.2",
+    "axios-rate-limit": "^1.4.0"
   },
   "devDependencies": {
     "@types/chance": "^1.1.6",
