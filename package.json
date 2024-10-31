@@ -1,5 +1,5 @@
 {
-  "name": "bling-erp-api-rate-limit",
+  "name": "bling-erp-api-with-rate-limit",
   "version": "5.8.0",
   "description": "Pacote de integração com a API do Bling ERP",
   "main": "lib/bling.js",
